@@ -130,6 +130,63 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- Navegación de Días en Dashboard --- */
+        .day-navigator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            background-color: var(--bg-input);
+            padding: 10px;
+            border-radius: var(--radius);
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-day-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .nav-day-btn:hover {
+            background-color: var(--accent-primary);
+            color: #fff;
+            border-color: var(--accent-primary);
+        }
+
+        .current-view-date {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-secondary);
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .btn-today-small {
+            background: transparent;
+            border: 1px solid var(--accent-secondary);
+            color: var(--accent-secondary);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-today-small:hover {
+            background: var(--accent-secondary);
+            color: #fff;
+        }
+
         /* --- Tarjetas y Grid --- */
         .dashboard-grid {
             display: grid;
@@ -218,7 +275,7 @@
             background-color: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-muted);
-            margin-top: 0; /* Ajustado para cabecera */
+            margin-top: 0; 
             width: auto;
         }
 
@@ -296,7 +353,7 @@
 
         .cal-day {
             background-color: var(--bg-input);
-            min-height: 80px; /* Altura ajustada */
+            min-height: 80px;
             padding: 8px;
             border-radius: var(--radius);
             cursor: pointer;
@@ -316,7 +373,7 @@
 
         .cal-day.today {
             border: 2px solid var(--accent-primary);
-            background-color: rgba(105, 158, 110, 0.15); /* Más visible */
+            background-color: rgba(105, 158, 110, 0.15);
             box-shadow: 0 0 10px rgba(105, 158, 110, 0.2);
         }
 
@@ -357,17 +414,17 @@
             margin-top: 20px;
             background-color: var(--bg-input);
             border-radius: var(--radius);
-            padding: 10px 5px; /* Padding reducido para barras finas */
+            padding: 10px 5px; 
             position: relative;
-            overflow-x: auto; /* Permitir scroll si hay muchas barras */
+            overflow-x: auto; 
         }
         
         .chart-bar-group {
             display: flex;
             align-items: flex-end;
-            justify-content: space-between; /* Barras distribuidas */
+            justify-content: space-between; 
             height: 100%;
-            min-width: 600px; /* Ancho mínimo para que no se aplasten */
+            min-width: 600px; 
             padding-bottom: 20px;
         }
 
@@ -375,12 +432,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* flex: 1 permite que se ajusten automáticamente */
             flex: 1; 
             height: 100%;
             justify-content: flex-end;
             position: relative;
-            margin: 0 2px; /* Pequeño margen entre barras */
+            margin: 0 2px; 
         }
 
         .stacked-bar {
@@ -397,7 +453,7 @@
             margin-top: 5px;
             font-size: 0.65rem;
             color: var(--text-muted);
-            transform: rotate(-45deg); /* Rotar etiquetas en 30 días */
+            transform: rotate(-45deg); 
             white-space: nowrap;
         }
 
@@ -441,11 +497,13 @@
             .sidebar { width: 100%; height: auto; flex-direction: row; align-items: center; padding: 10px; overflow-x: auto; }
             .brand { margin-bottom: 0; margin-right: 20px; font-size: 1.2rem; }
             .nav-btn { padding: 8px; font-size: 0.9rem; }
-            .nav-btn span { display: none; } /* Ocultar texto en móvil */
+            .nav-btn span { display: none; }
             .dashboard-grid { grid-template-columns: 1fr; }
             .main-content { padding: 15px; }
             .cal-day { min-height: 50px; }
-            .cal-content { display: none; } /* Ocultar detalles en móvil */
+            .cal-content { display: none; } 
+            .day-navigator { gap: 5px; }
+            .current-view-date { font-size: 0.9rem; min-width: 100px; }
         }
     </style>
 </head>
@@ -459,7 +517,7 @@
         </div>
         <button class="nav-btn active" onclick="app.navigate('dashboard')">
             <svg class="icon" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-            <span>Diario Hoy</span>
+            <span>Diario</span>
         </button>
         <button class="nav-btn" onclick="app.navigate('calendar')">
             <svg class="icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
@@ -471,7 +529,7 @@
         </button>
         <button class="nav-btn" onclick="app.navigate('goals')">
             <svg class="icon" viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
-            <span>Objetivos y Peso</span>
+            <span>Objetivos</span>
         </button>
     </nav>
 
@@ -479,11 +537,20 @@
     <main class="main-content">
         <header>
             <h1 id="page-title">Panel Principal</h1>
-            <div id="current-date" style="color: var(--text-muted);"></div>
+            <div id="real-current-date" style="color: var(--text-muted);"></div>
         </header>
 
         <!-- SECCIÓN 1: DASHBOARD (Diario) -->
         <section id="dashboard" class="section active">
+            
+            <!-- Navegador de Días (Nueva Funcionalidad) -->
+            <div class="day-navigator">
+                <button class="nav-day-btn" onclick="app.changeViewDate(-1)" title="Día Anterior">&lt;</button>
+                <div id="view-date-display" class="current-view-date">Hoy</div>
+                <button class="nav-day-btn" onclick="app.changeViewDate(1)" title="Día Siguiente">&gt;</button>
+                <button class="btn-today-small" onclick="app.goToTodayDash()">Ir a Hoy</button>
+            </div>
+
             <!-- Resumen de Totales -->
             <div class="stats-summary">
                 <div class="stat-box">
@@ -508,7 +575,7 @@
             <div class="dashboard-grid">
                 <!-- Columna Izquierda: Listado de Comidas -->
                 <div class="card">
-                    <h2>Registro del Día</h2>
+                    <h2 id="meal-list-title">Registro del Día</h2>
                     <div id="meals-container">
                         <!-- Se llenará dinámicamente -->
                     </div>
@@ -582,7 +649,6 @@
             <div class="card">
                 <div class="calendar-header">
                     <button class="btn-outline" onclick="app.changeMonth(-1)">&lt; Anterior</button>
-                    <!-- Botón Hoy añadido -->
                     <button class="btn-outline" onclick="app.goToToday()" style="color: var(--accent-primary); border-color: var(--accent-primary);">Hoy</button>
                     <h2 id="cal-month-year">Mes Año</h2>
                     <button class="btn-outline" onclick="app.changeMonth(1)">Siguiente &gt;</button>
@@ -732,7 +798,8 @@
                     start: 70,
                     target: 65
                 },
-                currentDate: new Date()
+                currentDate: new Date(), // Para el calendario
+                viewDate: new Date() // Nuevo: Para el dashboard (edición)
             },
             
             init() {
@@ -740,7 +807,7 @@
                 this.setupEventListeners();
                 this.renderDashboard();
                 this.renderCalendar();
-                this.updateDateDisplay();
+                this.updateRealDateDisplay();
                 this.renderWeightHistory();
                 this.renderGoals();
                 this.updateLongTermUI();
@@ -770,14 +837,14 @@
                 return date.toISOString().split('T')[0];
             },
 
-            formatDisplayDate(dateStr) {
-                const parts = dateStr.split('-');
-                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            formatDisplayDate(dateObj) {
+                const options = { weekday: 'long', day: 'numeric', month: 'long' };
+                return dateObj.toLocaleDateString('es-ES', options);
             },
 
-            updateDateDisplay() {
+            updateRealDateDisplay() {
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                document.getElementById('current-date').innerText = new Date().toLocaleDateString('es-ES', options);
+                document.getElementById('real-current-date').innerText = new Date().toLocaleDateString('es-ES', options);
             },
 
             showToast(msg, type = 'success') {
@@ -790,7 +857,7 @@
                 setTimeout(() => toast.remove(), 3000);
             },
 
-            // --- Navegación ---
+            // --- Navegación Global ---
             navigate(viewId) {
                 document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
                 document.getElementById(viewId).classList.add('active');
@@ -812,11 +879,36 @@
                 document.getElementById('page-title').innerText = titles[viewId];
             },
 
+            // --- Navegación de Días en Dashboard (NUEVO) ---
+            changeViewDate(delta) {
+                this.data.viewDate.setDate(this.data.viewDate.getDate() + delta);
+                this.renderDashboard();
+            },
+
+            goToTodayDash() {
+                this.data.viewDate = new Date();
+                this.renderDashboard();
+                this.showToast('Vuelto al día actual');
+            },
+
             // --- Dashboard Logic ---
             renderDashboard() {
-                const todayKey = this.formatDateKey(new Date());
-                const entries = this.data.entries[todayKey] || [];
+                // Usamos viewDate en lugar de new Date()
+                const viewDateKey = this.formatDateKey(this.data.viewDate);
+                const entries = this.data.entries[viewDateKey] || [];
                 const totals = { cals: 0, prot: 0, carbs: 0, fat: 0 };
+
+                // Actualizar título visual de la fecha
+                const displayTitle = this.formatDisplayDate(this.data.viewDate);
+                const viewDateDisplay = document.getElementById('view-date-display');
+                
+                if (this.formatDateKey(this.data.viewDate) === this.formatDateKey(new Date())) {
+                    viewDateDisplay.innerText = "Hoy";
+                    viewDateDisplay.style.color = "var(--accent-primary)";
+                } else {
+                    viewDateDisplay.innerText = displayTitle;
+                    viewDateDisplay.style.color = "var(--accent-secondary)";
+                }
 
                 const container = document.getElementById('meals-container');
                 container.innerHTML = '';
@@ -845,7 +937,7 @@
                                     <strong>${entry.name}</strong>
                                     <span>${entry.cals} kcal | P: ${entry.prot}g | C: ${entry.carbs}g | G: ${entry.fat}g</span>
                                 </div>
-                                <button class="delete-btn" onclick="app.deleteEntry('${todayKey}', ${entry.id})">&times;</button>
+                                <button class="delete-btn" onclick="app.deleteEntry('${viewDateKey}', ${entry.id})">&times;</button>
                             </div>`;
                         });
                     }
@@ -866,9 +958,10 @@
 
             addFood(e) {
                 e.preventDefault();
-                const todayKey = this.formatDateKey(new Date());
+                // Guardamos en la fecha vista, no en hoy
+                const viewDateKey = this.formatDateKey(this.data.viewDate);
                 
-                if (!this.data.entries[todayKey]) this.data.entries[todayKey] = [];
+                if (!this.data.entries[viewDateKey]) this.data.entries[viewDateKey] = [];
 
                 const newEntry = {
                     id: Date.now(),
@@ -880,7 +973,7 @@
                     fat: Number(document.getElementById('food-fat').value) || 0
                 };
 
-                this.data.entries[todayKey].push(newEntry);
+                this.data.entries[viewDateKey].push(newEntry);
                 this.saveData();
                 this.renderDashboard();
                 this.showToast('Alimento añadido correctamente');
@@ -894,7 +987,7 @@
                 this.showToast('Alimento eliminado', 'error');
             },
 
-            // --- Calendar Logic (Mensual + Hoy) ---
+            // --- Calendar Logic ---
             renderCalendar() {
                 const grid = document.getElementById('calendar-days');
                 grid.innerHTML = '';
@@ -935,7 +1028,6 @@
                     const el = document.createElement('div');
                     el.className = 'cal-day';
                     
-                    // Resaltar el día real actual
                     if (dateKey === todayKey) el.classList.add('today');
 
                     let indicatorClass = 'indicator-success';
@@ -971,19 +1063,18 @@
             },
 
             showDayDetail(dateKey, totalCals, totalProt) {
-                document.getElementById('detail-date-title').innerText = `Detalle: ${this.formatDisplayDate(dateKey)}`;
+                document.getElementById('detail-date-title').innerText = `Detalle: ${this.formatDisplayDate(new Date(dateKey))}`;
                 document.getElementById('detail-cals').innerText = totalCals;
                 document.getElementById('detail-prot').innerText = totalProt || 0;
                 document.getElementById('day-detail').style.display = 'block';
                 document.getElementById('day-detail').scrollIntoView({ behavior: 'smooth' });
             },
 
-            // --- Analytics Logic (Mensual: 30 Días) ---
+            // --- Analytics Logic ---
             renderAnalytics() {
                 const chartContainer = document.getElementById('macros-chart');
                 chartContainer.innerHTML = '';
 
-                // Cambiado de 7 días a 30 días (Mensual)
                 const daysCount = 30;
                 const days = [];
                 for (let i = daysCount - 1; i >= 0; i--) {
@@ -1014,7 +1105,6 @@
                     const wrapper = document.createElement('div');
                     wrapper.className = 'bar-wrapper';
                     
-                    // Mostrar etiqueta cada 5 días para no saturar
                     const dayNum = parseInt(dayKey.split('-')[2]);
                     const showLabel = (dayNum % 5 === 0) ? true : false;
 
@@ -1105,7 +1195,7 @@
                     li.style.borderBottom = '1px solid var(--border-color)';
                     li.style.display = 'flex';
                     li.style.justifyContent = 'space-between';
-                    li.innerHTML = `<span>${this.formatDisplayDate(item.date)}</span> <strong>${item.weight} kg</strong>`;
+                    li.innerHTML = `<span>${this.formatDisplayDate(new Date(item.date))}</span> <strong>${item.weight} kg</strong>`;
                     list.appendChild(li);
                 });
             },
